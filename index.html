@@ -3,66 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI 사주 도사실</title>
+  <title>4컷 사주 웹툰</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🔮 AI 사주 도사실</h1>
-      <p>생년월일시를 입력하면 타고난 운과 기운을 풀이해 드립니다.</p>
-    </header>
+  <!-- 화면 1: 사주 정보 입력 화면 -->
+  <main id="screen-input" class="screen">
+    <div class="card">
+      <header>
+        <span class="badge">NAVER/INSTA STYLE</span>
+        <h1>🎨 4컷 사주 웹툰</h1>
+        <p>생년월일시를 입력하면 나만의 사주 만화가 완성됩니다!</p>
+      </header>
 
-    <form id="saju-form">
-      <div class="input-group">
-        <label for="birthDate">생년월일</label>
-        <input type="date" id="birthDate" required>
-      </div>
-
-      <div class="input-row">
+      <form id="saju-form">
         <div class="input-group">
-          <label for="calendarType">양력/음력</label>
-          <select id="calendarType">
-            <option value="양력">양력</option>
-            <option value="음력(평달)">음력 (평달)</option>
-            <option value="음력(윤달)">음력 (윤달)</option>
-          </select>
+          <label for="birthDate">생년월일</label>
+          <input type="date" id="birthDate" required>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <label for="calendarType">양력/음력</label>
+            <select id="calendarType">
+              <option value="양력">양력</option>
+              <option value="음력(평달)">음력 (평달)</option>
+              <option value="음력(윤달)">음력 (윤달)</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="gender">성별</label>
+            <select id="gender">
+              <option value="남성">남성</option>
+              <option value="여성">여성</option>
+            </select>
+          </div>
         </div>
 
         <div class="input-group">
-          <label for="gender">성별</label>
-          <select id="gender">
-            <option value="남성">남성</option>
-            <option value="여성">여성</option>
-          </select>
+          <label for="birthTime">태어난 시간 (선택)</label>
+          <input type="time" id="birthTime">
         </div>
-      </div>
 
-      <div class="input-group">
-        <label for="birthTime">태어난 시간 (선택)</label>
-        <input type="time" id="birthTime">
-      </div>
+        <div class="input-group">
+          <label for="concern">주요 고민/궁금한 점</label>
+          <input type="text" id="concern" placeholder="예: 재물운, 직장이직, 연애운 등">
+        </div>
 
-      <div class="input-group">
-        <label for="concern">궁금한 점 (선택)</label>
-        <input type="text" id="concern" placeholder="예: 올해 이직운, 연애운, 재물운 등">
-      </div>
-
-      <button type="submit" id="submit-btn">사주 풀이 보기</button>
-    </form>
-
-    <div id="loading" class="hidden">
-      <div class="spinner"></div>
-      <p>사주 명식을 분석하고 있습니다...</p>
+        <button type="submit" id="submit-btn">4컷 사주 웹툰 연재하기 🚀</button>
+      </form>
     </div>
+  </main>
 
-    <div id="result-card" class="hidden">
-      <h2>📜 사주 풀이 결과</h2>
-      <div id="result-content"></div>
-      <button onclick="window.print()" class="print-btn">결과 인쇄/저장</button>
+  <!-- 화면 2: 로딩 화면 -->
+  <div id="screen-loading" class="screen hidden">
+    <div class="loading-box">
+      <div class="pen-animation">🖌️</div>
+      <h2>도사가 4컷 만화를 그리는 중...</h2>
+      <p>사주 명식을 분석하여 스토리를 구성하고 있습니다.</p>
     </div>
   </div>
+
+  <!-- 화면 3: 웹툰 결과 화면 -->
+  <main id="screen-result" class="screen hidden">
+    <div class="webtoon-container">
+      <div class="nav-bar">
+        <button id="back-btn" class="back-btn">← 다시 입력하기</button>
+      </div>
+
+      <header class="webtoon-header">
+        <div id="character-emoji" class="char-avatar">🐯🔥</div>
+        <h1 id="episode-title">사주 웹툰 제목</h1>
+        <p id="character-info" class="char-desc">캐릭터 설명</p>
+      </header>
+
+      <!-- 4컷 만화가 세로로 나열되는 공간 -->
+      <section id="webtoon-cuts" class="cuts-feed"></section>
+
+      <!-- 결론 및 행운 아이템 -->
+      <footer class="webtoon-footer">
+        <h3>✨ 행운의 치트키</h3>
+        <p id="lucky-text"></p>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="share-btn">맨 위로 가기</button>
+      </footer>
+    </div>
+  </main>
 
   <script src="app.js"></script>
 </body>
