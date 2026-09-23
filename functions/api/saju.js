@@ -13,8 +13,9 @@ export async function onRequestPost(context) {
     const name = userName ? userName.trim() : "주인공";
 
     const prompt = `
-당신은 픽사(Pixar) 애니메이션 스튜디오의 스토리보드 작가이자 사주명리학 도사입니다.
-의뢰인의 사주를 픽사 3D 애니메이션 풍의 4컷 만화 스토리로 각색하여 반드시 순수 JSON 규격으로만 응답하세요.
+당신은 유명 공식 4컷 만화(블루아카이브 4컷 만화 스타일) 작가이자 사주명리학 도사입니다.
+의뢰인의 사주를 바탕으로 '도사'와 주인공 '${name}'이 티키타카 대화를 나누는 코믹한 4컷 만화 스토리를 작성하세요.
+반드시 순수 JSON 규격으로만 응답하세요.
 
 [의뢰인 정보]
 - 이름: ${name}
@@ -23,46 +24,42 @@ export async function onRequestPost(context) {
 - 성별: ${gender}
 - 주요 고민: ${concern || '올해의 총운 및 재물운'}
 
-[응답 JSON 규격]
+[출력 JSON 규격]
 {
-  "episodeTitle": "${name}의 4컷 사주 어드벤처: 에피소드 제목",
-  "character": {
-    "name": "사주 캐릭터 명칭 (예: 활활 타오르는 태양룡)",
-    "element": "오행 기운 요약 (예: 丙火 - 양(陽)의 불꽃)",
-    "emoji": "어울리는 이모지 (예: ☀️🐉)"
-  },
+  "comicTitle": "에피소드 제목 (예: 불꽃의 후예, 냉혹한 프로처럼 2~6글자)",
   "cuts": [
     {
       "cut": 1,
-      "title": "제1화: 운명의 탄생",
-      "imagePrompt": "A cute 3D Pixar animation style scene featuring a friendly character embodying the element in a magical village, bright warm sunlight, Disney Pixar style, highly detailed 3D render, cinematic lighting",
-      "soundEffect": "번쩍!",
-      "dialogue": "${name}(이)가 세상에 태어났을 때 전설의 불꽃이 타올랐지!"
+      "imagePrompt": "Cute chibi anime characters in 4koma manga style, warm glowing scene, digital comic art",
+      "sfx": "번쩍!",
+      "bubble1": { "speaker": "도사", "text": "오호! ${name}님에게서 섬세한 불꽃의 기운이 피어오르는군요!" },
+      "bubble2": { "speaker": "${name}", "text": "네? 제 손에 불이 붙은 건가요?!" }
     },
     {
       "cut": 2,
-      "title": "제2화: 필살기와 재능",
-      "imagePrompt": "A cute 3D Pixar animation style scene showing the heroic character discovering their superpower, dynamic pose, sparkling magic effects, cheerful expression, 3D animated movie still",
-      "soundEffect": "콰과광!",
-      "dialogue": "이것이 바로 ${name}만의 타고난 재능이야!"
+      "imagePrompt": "Cute chibi anime character discovering special talent, sparkling triumphant comic scene",
+      "sfx": "짜-안!",
+      "bubble1": { "speaker": "도사", "text": "손만 대면 척척 해결되는 천부적인 재능이지요." },
+      "bubble2": { "speaker": "${name}", "text": "오... 생각보다 대단한 사주였잖아?!" }
     },
     {
       "cut": 3,
-      "title": "제3화: 닥쳐온 시련",
-      "imagePrompt": "A cute 3D Pixar animation style scene showing a comical crisis or obstacle, funny surprised expression, stormy cute atmosphere, Disney Pixar cartoon render",
-      "soundEffect": "쿵...!",
-      "dialogue": "앗! 이런 약점과 함정을 조심해야 해!"
+      "imagePrompt": "Cute chibi anime character facing funny sudden crisis, comical shocked expression, manga style",
+      "sfx": "쿵...!!",
+      "bubble1": { "speaker": "도사", "text": "하지만 조급해지면 불길이 꺼지니 주의하세요!" },
+      "bubble2": { "speaker": "${name}", "text": "으악! 잔고가 바닥나는 환각이 보여요!" }
     },
     {
       "cut": 4,
-      "title": "제4화: 행운의 엔딩",
-      "imagePrompt": "A happy triumphant ending scene in 3D Pixar animation style, joyful cute characters celebrating with glowing treasure and lucky charms, colorful confetti, heartwarming Disney Pixar render",
-      "soundEffect": "반짝반짝 ✨",
-      "dialogue": "이 비법과 행운의 아이템만 챙기면 모든 게 해결될 거야!"
+      "imagePrompt": "Happy cheerful cute chibi anime ending scene with lucky charms and bright smiles",
+      "sfx": "반짝✨",
+      "bubble1": { "speaker": "도사", "text": "초록색 아이템을 지니고 차분히 전진하면 대성합니다!" },
+      "bubble2": { "speaker": "${name}", "text": "좋아, 오늘부터 초록색 옷만 입는다!" }
     }
   ],
-  "luckyItems": "행운의 색상, 행운의 장소 및 행동 조언"
+  "luckyAdvice": "행운의 아이템: 초록색 소품, 호숫가 산책 | 조언: 성급한 판단보다 한 템포 쉬어가기"
 }
+*대사는 말풍선에 쏙 들어가도록 20자 내외로 재치 있고 짧게 쓰세요.*
 `;
 
     const candidateModels = ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.0-flash"];
@@ -86,7 +83,7 @@ export async function onRequestPost(context) {
           replyText = data.candidates[0].content.parts[0].text;
           break;
         } else {
-          lastError = data.error?.message || "응답 생성 실패";
+          lastError = data.error?.message || "응답 실패";
         }
       } catch (e) {
         lastError = e.message;
@@ -94,7 +91,7 @@ export async function onRequestPost(context) {
     }
 
     if (!replyText) {
-      return new Response(JSON.stringify({ error: lastError || "사주 웹툰을 생성하지 못했습니다." }), {
+      return new Response(JSON.stringify({ error: lastError || "사주 웹툰 생성 실패" }), {
         status: 500,
         headers: { "Content-Type": "application/json" }
       });
