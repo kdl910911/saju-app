@@ -1,6 +1,6 @@
 export async function onRequestPost(context) {
   try {
-    const { birthDate, birthTime, calendarType, gender, concern } = await context.request.json();
+    const { userName, birthDate, birthTime, calendarType, gender, concern } = await context.request.json();
     const apiKey = context.env.GEMINI_API_KEY;
 
     if (!apiKey) {
@@ -10,11 +10,14 @@ export async function onRequestPost(context) {
       });
     }
 
+    const name = userName ? userName.trim() : "주인공";
+
     const prompt = `
-당신은 통찰력 넘치는 사주명리학 도사이자 재치 있는 웹툰 작가입니다.
-의뢰인의 사주를 4컷 만화(웹툰) 형식의 스토리로 각색하여 반드시 순수 JSON 규격으로만 응답하세요.
+당신은 픽사(Pixar) 애니메이션 스튜디오의 스토리보드 작가이자 사주명리학 도사입니다.
+의뢰인의 사주를 픽사 3D 애니메이션 풍의 4컷 만화 스토리로 각색하여 반드시 순수 JSON 규격으로만 응답하세요.
 
 [의뢰인 정보]
+- 이름: ${name}
 - 생년월일: ${birthDate} (${calendarType})
 - 태어난 시간: ${birthTime || '모름/미입력'}
 - 성별: ${gender}
@@ -22,43 +25,43 @@ export async function onRequestPost(context) {
 
 [응답 JSON 규격]
 {
-  "episodeTitle": "웹툰 에피소드 제목 (예: 태양을 품은 붉은 호랑이의 모험)",
+  "episodeTitle": "${name}의 4컷 사주 어드벤처: 에피소드 제목",
   "character": {
-    "name": "사주 캐릭터 명칭 (예: 타오르는 불꽃의 검사)",
-    "element": "오행 및 기운 요약 (예: 丙火(병화) - 양의 기운)",
-    "emoji": "어울리는 캐릭터 이모지 (예: 🐯🔥)"
+    "name": "사주 캐릭터 명칭 (예: 활활 타오르는 태양룡)",
+    "element": "오행 기운 요약 (예: 丙火 - 양(陽)의 불꽃)",
+    "emoji": "어울리는 이모지 (예: ☀️🐉)"
   },
   "cuts": [
     {
       "cut": 1,
-      "title": "제1화: 운명의 각성 (타고난 본성)",
-      "scene": "배경 및 상황 묘사 (1~2문장)",
-      "soundEffect": "만화 효과음 (예: 콰과광!)",
-      "dialogue": "캐릭터 대사 (말풍선에 들어갈 말)"
+      "title": "제1화: 운명의 탄생",
+      "imagePrompt": "A cute 3D Pixar animation style scene featuring a friendly character embodying the element in a magical village, bright warm sunlight, Disney Pixar style, highly detailed 3D render, cinematic lighting",
+      "soundEffect": "번쩍!",
+      "dialogue": "${name}(이)가 세상에 태어났을 때 전설의 불꽃이 타올랐지!"
     },
     {
       "cut": 2,
-      "title": "제2화: 필살기와 재능 (나의 장점)",
-      "scene": "재능을 발휘하는 멋진 상황 묘사",
-      "soundEffect": "효과음 (예: 파지지직!)",
-      "dialogue": "자신감 넘치는 대사"
+      "title": "제2화: 필살기와 재능",
+      "imagePrompt": "A cute 3D Pixar animation style scene showing the heroic character discovering their superpower, dynamic pose, sparkling magic effects, cheerful expression, 3D animated movie still",
+      "soundEffect": "콰과광!",
+      "dialogue": "이것이 바로 ${name}만의 타고난 재능이야!"
     },
     {
       "cut": 3,
-      "title": "제3화: 닥쳐온 시련 (주의할 점과 함정)",
-      "scene": "방심하거나 주의해야 할 위기 상황 묘사",
-      "soundEffect": "효과음 (예: 쿵...!)",
-      "dialogue": "위기 경고 또는 속마음 대사"
+      "title": "제3화: 닥쳐온 시련",
+      "imagePrompt": "A cute 3D Pixar animation style scene showing a comical crisis or obstacle, funny surprised expression, stormy cute atmosphere, Disney Pixar cartoon render",
+      "soundEffect": "쿵...!",
+      "dialogue": "앗! 이런 약점과 함정을 조심해야 해!"
     },
     {
       "cut": 4,
-      "title": "제4화: 행운의 치트키 (고민 해결 & 엔딩)",
-      "scene": "고민에 대한 명쾌한 해법과 결말",
-      "soundEffect": "효과음 (예: 반짝반짝 ✨)",
-      "dialogue": "도사의 최종 조언 및 행운 아이템"
+      "title": "제4화: 행운의 엔딩",
+      "imagePrompt": "A happy triumphant ending scene in 3D Pixar animation style, joyful cute characters celebrating with glowing treasure and lucky charms, colorful confetti, heartwarming Disney Pixar render",
+      "soundEffect": "반짝반짝 ✨",
+      "dialogue": "이 비법과 행운의 아이템만 챙기면 모든 게 해결될 거야!"
     }
   ],
-  "luckyItems": "행운의 색상, 행운의 방향 및 팁 (예: 푸른색 옷, 호숫가 산책)"
+  "luckyItems": "행운의 색상, 행운의 장소 및 행동 조언"
 }
 `;
 
