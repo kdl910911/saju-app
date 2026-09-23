@@ -15,7 +15,6 @@ form.addEventListener('submit', async (e) => {
   const gender = document.getElementById('gender').value;
   const concern = document.getElementById('concern').value;
 
-  // 화면 전환: 입력창 숨기고 픽사 렌더링 로딩창 띄우기
   screenInput.classList.add('hidden');
   screenLoading.classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -29,10 +28,10 @@ form.addEventListener('submit', async (e) => {
 
     const data = await res.json();
     if (!res.ok || data.error) {
-      throw new Error(data.error || "웹툰 생성 실패");
+      throw new Error(data.error || "만화 제작 실패");
     }
 
-    renderPixarWebtoon(data.result);
+    renderMangaStrip(data.result);
 
     screenLoading.classList.add('hidden');
     screenResult.classList.remove('hidden');
@@ -43,42 +42,52 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-// 뒤로가기 버튼
 backBtn.addEventListener('click', () => {
   screenResult.classList.add('hidden');
   screenInput.classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// 픽사 4컷 만화 렌더링 함수
-function renderPixarWebtoon(data) {
-  document.getElementById('character-emoji').textContent = data.character.emoji || "🎬";
-  document.getElementById('episode-title').textContent = data.episodeTitle || "나의 사주 어드벤처";
-  document.getElementById('character-info').textContent = `${data.character.name} | ${data.character.element}`;
-  document.getElementById('lucky-text').textContent = data.luckyItems || "행운을 빕니다!";
+// 정통 4컷 만화 렌더링 함수
+function renderMangaStrip(data) {
+  // 상단 <제목> 설정
+  document.getElementById('comic-title').textContent = `〈${data.comicTitle || "운명의 사주"}〉`;
+  document.getElementById('lucky-advice').textContent = `🍀 ${data.luckyAdvice || "행운을 빕니다!"}`;
 
-  const cutsContainer = document.getElementById('webtoon-cuts');
-  cutsContainer.innerHTML = '';
+  const stripContainer = document.getElementById('manga-strip');
+  stripContainer.innerHTML = '';
 
   data.cuts.forEach((cut) => {
-    // 픽사 3D 스타일 이미지 생성 무료 URL (Pollinations AI)
-    const prompt = encodeURIComponent(`${cut.imagePrompt}, cute 3D Pixar Disney style animation, vibrant colorful lighting, 3D render`);
-    const imageUrl = `https://image.pollinations.ai/prompt/${prompt}?width=600&height=400&nologo=true`;
+    // 4컷 애니메이션 스타일 이미지 URL
+    const cleanPrompt = encodeURIComponent((cut.imagePrompt || "cute anime comic background").replace(/[^a-zA-Z0-9 ,]/g, ""));
+    const imageUrl = `https://image.pollinations.ai/prompt/${cleanPrompt}?width=500&height=300&nologo=true`;
 
     const panel = document.createElement('div');
-    panel.className = 'cut-panel';
-    panel.innerHTML = `
-      <span class="cut-badge">CUT ${cut.cut}</span>
-      <h2 class="cut-title">${cut.title}</h2>
-      
-      <!-- 픽사 3D 만화 컷 이미지 -->
-      <div class="cut-img-box">
-        <img src="${imageUrl}" alt="${cut.title}" class="cut-img" loading="lazy" />
-      </div>
+    panel.className = 'comic-panel';
 
-      <div class="sound-effect">${cut.soundEffect}</div>
-      <div class="speech-bubble">💬 ${cut.dialogue}</div>
+    panel.innerHTML = `
+      <!-- 만화 컷 배경 일러스트 -->
+      <img src="${imageUrl}" alt="컷 배경" class="panel-bg-img" onerror="this.style.opacity='0.2';" />
+
+      <!-- 컷 내부 오버레이: 효과음 및 티키타카 말풍선 -->
+      <div class="panel-overlay">
+        <!-- 첫 번째 대사 말풍선 (도사) -->
+        <div class="manga-bubble bubble-pos-1">
+          <span class="bubble-speaker">${cut.bubble1.speaker}</span>
+          <span>${cut.bubble1.text}</span>
+        </div>
+
+        <!-- 만화 효과음 텍스트 -->
+        <div class="manga-sfx">${cut.sfx}</div>
+
+        <!-- 두 번째 대사 말풍선 (주인공) -->
+        <div class="manga-bubble bubble-pos-2">
+          <span class="bubble-speaker">${cut.bubble2.speaker}</span>
+          <span>${cut.bubble2.text}</span>
+        </div>
+      </div>
     `;
-    cutsContainer.appendChild(panel);
+
+    stripContainer.appendChild(panel);
   });
 }
