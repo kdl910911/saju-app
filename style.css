@@ -41,19 +41,29 @@ input:focus, select:focus { outline: none; border-color: #2563eb; background: #f
 .manga-strip { display: flex; flex-direction: column; gap: 8px; }
 
 .comic-panel { position: relative; width: 100%; height: 210px; border: 2.5px solid #000; border-radius: 4px; overflow: hidden; background: #e0f2fe; }
-.panel-bg-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 1; }
+
+/* 만화 컷 배경 캔버스 */
+.panel-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1; }
+.panel-canvas-1 { background: linear-gradient(135deg, #fed7aa 0%, #fef08a 100%); }
+.panel-canvas-2 { background: linear-gradient(135deg, #bfdbfe 0%, #e9d5ff 100%); }
+.panel-canvas-3 { background: linear-gradient(135deg, #fecaca 0%, #fed7aa 100%); }
+.panel-canvas-4 { background: linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 100%); }
+.canvas-emoji { font-size: 3rem; margin-bottom: 0.2rem; }
+.canvas-text { font-size: 0.75rem; font-weight: 900; color: rgba(0,0,0,0.3); }
+
+/* AI 생성 이미지 (스르륵 페이드인) */
+.panel-bg-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 2; transition: opacity 0.5s ease-in-out; }
 
 /* 만화 컷 위 오버레이 (말풍선, 효과음) */
-.panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; }
+.panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; }
 
-/* 만화 효과음 텍스트 (쓱- 짜안! 등) */
-.manga-sfx { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg); font-size: 1.8rem; font-weight: 900; color: #ef4444; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 3px 3px 0 #000; pointer-events: none; z-index: 3; }
+/* 만화 효과음 텍스트 */
+.manga-sfx { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg); font-size: 1.8rem; font-weight: 900; color: #ef4444; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 3px 3px 0 #000; pointer-events: none; z-index: 4; }
 
 /* 타원형 정통 말풍선 */
 .manga-bubble { background: #ffffff; border: 2px solid #000; border-radius: 18px; padding: 6px 12px; max-width: 62%; font-size: 0.85rem; font-weight: 700; line-height: 1.35; color: #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.25); pointer-events: auto; }
 .bubble-speaker { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 1px 4px; margin-right: 4px; margin-bottom: 2px; }
 
-/* 대사 위치 분배: 도사는 왼쪽 위, 주인공은 오른쪽 아래 */
 .bubble-pos-1 { align-self: flex-start; margin-left: 4px; margin-top: 4px; }
 .bubble-pos-2 { align-self: flex-end; margin-right: 4px; margin-bottom: 4px; }
 
