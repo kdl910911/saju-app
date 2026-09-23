@@ -48,39 +48,49 @@ backBtn.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// 정통 4컷 만화 렌더링 함수
 function renderMangaStrip(data) {
-  // 상단 <제목> 설정
   document.getElementById('comic-title').textContent = `〈${data.comicTitle || "운명의 사주"}〉`;
   document.getElementById('lucky-advice').textContent = `🍀 ${data.luckyAdvice || "행운을 빕니다!"}`;
 
   const stripContainer = document.getElementById('manga-strip');
   stripContainer.innerHTML = '';
 
+  const charEmoji = data.characterEmoji || "✨";
+
   data.cuts.forEach((cut) => {
-    // 4컷 애니메이션 스타일 이미지 URL
-    const cleanPrompt = encodeURIComponent((cut.imagePrompt || "cute anime comic background").replace(/[^a-zA-Z0-9 ,]/g, ""));
-    const imageUrl = `https://image.pollinations.ai/prompt/${cleanPrompt}?width=500&height=300&nologo=true`;
+    // 정상 동작하는 pollinations.ai/p/ 공식 주소
+    const cleanPrompt = encodeURIComponent((cut.imagePrompt || "cute anime chibi comic scene").replace(/[^a-zA-Z0-9 ,]/g, ""));
+    const imageUrl = `https://pollinations.ai/p/${cleanPrompt}?width=600&height=360`;
 
     const panel = document.createElement('div');
     panel.className = 'comic-panel';
 
     panel.innerHTML = `
-      <!-- 만화 컷 배경 일러스트 -->
-      <img src="${imageUrl}" alt="컷 배경" class="panel-bg-img" onerror="this.style.opacity='0.2';" />
+      <!-- 기본 만화 톤 캔버스 (그림 로딩 중에도 깨지지 않고 만화 느낌 유지) -->
+      <div class="panel-canvas panel-canvas-${cut.cut}">
+        <div class="canvas-emoji">${charEmoji}</div>
+        <div class="canvas-text">CUT ${cut.cut}</div>
+      </div>
+
+      <!-- AI 실시간 생성 이미지 (완료 시 페이드인, 실패 시 자동 숨김) -->
+      <img 
+        src="${imageUrl}" 
+        alt="만화 컷" 
+        class="panel-bg-img" 
+        onload="this.style.opacity='1';" 
+        onerror="this.style.display='none';" 
+        style="opacity: 0;" 
+      />
 
       <!-- 컷 내부 오버레이: 효과음 및 티키타카 말풍선 -->
       <div class="panel-overlay">
-        <!-- 첫 번째 대사 말풍선 (도사) -->
         <div class="manga-bubble bubble-pos-1">
           <span class="bubble-speaker">${cut.bubble1.speaker}</span>
           <span>${cut.bubble1.text}</span>
         </div>
 
-        <!-- 만화 효과음 텍스트 -->
         <div class="manga-sfx">${cut.sfx}</div>
 
-        <!-- 두 번째 대사 말풍선 (주인공) -->
         <div class="manga-bubble bubble-pos-2">
           <span class="bubble-speaker">${cut.bubble2.speaker}</span>
           <span>${cut.bubble2.text}</span>
