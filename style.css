@@ -1,31 +1,56 @@
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-body { background: #0f172a; color: #f8fafc; display: flex; justify-content: center; padding: 2rem 1rem; min-height: 100vh; }
-.container { max-width: 580px; width: 100%; background: #1e293b; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; height: fit-content; }
-header { text-align: center; margin-bottom: 2rem; }
-header h1 { font-size: 1.8rem; color: #f1f5f9; margin-bottom: 0.5rem; }
-header p { color: #94a3b8; font-size: 0.95rem; }
+body { background: #0f172a; color: #1e293b; min-height: 100vh; display: flex; justify-content: center; }
+
+.screen { width: 100%; max-width: 600px; padding: 1.5rem 1rem; }
+.hidden { display: none !important; }
+
+/* 입력 카드 */
+.card { background: #ffffff; border-radius: 20px; padding: 2rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; }
+header { text-align: center; margin-bottom: 1.8rem; }
+.badge { background: #fee2e2; color: #ef4444; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: 12px; border: 1.5px solid #ef4444; }
+header h1 { font-size: 1.8rem; color: #0f172a; margin: 0.5rem 0 0.3rem; }
+header p { color: #64748b; font-size: 0.9rem; }
 
 .input-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
 .input-row { display: flex; gap: 1rem; }
 .input-row .input-group { flex: 1; }
-label { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.4rem; }
-input, select { padding: 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.95rem; width: 100%; }
-input:focus, select:focus { outline: none; border-color: #38bdf8; }
+label { font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.4rem; }
+input, select { padding: 0.8rem; border-radius: 10px; border: 2px solid #cbd5e1; font-size: 0.95rem; width: 100%; background: #f8fafc; }
+input:focus, select:focus { outline: none; border-color: #6366f1; background: #fff; }
 
-#submit-btn { width: 100%; padding: 0.9rem; background: #6366f1; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
-#submit-btn:hover { background: #4f46e5; }
-#submit-btn:disabled { background: #64748b; cursor: not-allowed; }
+#submit-btn { width: 100%; padding: 1rem; background: #6366f1; color: white; border: 2px solid #1e293b; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 4px 4px 0px #1e293b; transition: 0.1s; }
+#submit-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #1e293b; }
 
-.hidden { display: none; }
-#loading { text-align: center; margin: 2rem 0; color: #94a3b8; }
-.spinner { width: 36px; height: 36px; border: 4px solid #334155; border-top-color: #6366f1; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
-@keyframes spin { to { transform: rotate(360deg); } }
+/* 로딩 화면 */
+#screen-loading { display: flex; justify-content: center; align-items: center; text-align: center; }
+.loading-box { background: white; border-radius: 20px; padding: 2.5rem 1.5rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; width: 100%; }
+.pen-animation { font-size: 3rem; animation: bounce 1s infinite alternate; margin-bottom: 1rem; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-12px) rotate(15deg); } }
 
-#result-card { margin-top: 2rem; padding: 1.5rem; background: #0f172a; border-radius: 12px; border: 1px solid #38bdf8; }
-#result-card h2 { margin-bottom: 1rem; color: #38bdf8; font-size: 1.3rem; }
-#result-content { line-height: 1.8; color: #e2e8f0; font-size: 0.95rem; }
-#result-content h1, #result-content h2, #result-content h3 { color: #f1f5f9; margin: 1rem 0 0.5rem; }
-#result-content p { margin-bottom: 0.8rem; }
-#result-content ul, #result-content ol { margin-left: 1.2rem; margin-bottom: 0.8rem; }
-.print-btn { margin-top: 1.5rem; width: 100%; padding: 0.7rem; background: #334155; color: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; }
-.print-btn:hover { background: #475569; }
+/* 웹툰 결과 화면 */
+.webtoon-container { background: #ffffff; border-radius: 20px; padding: 1.5rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; }
+.nav-bar { margin-bottom: 1rem; }
+.back-btn { background: #f1f5f9; border: 2px solid #334155; border-radius: 8px; padding: 0.4rem 0.8rem; font-weight: 700; cursor: pointer; }
+.back-btn:hover { background: #e2e8f0; }
+
+.webtoon-header { text-align: center; padding-bottom: 1.5rem; border-bottom: 2px dashed #cbd5e1; margin-bottom: 1.5rem; }
+.char-avatar { font-size: 3.5rem; margin-bottom: 0.3rem; }
+.webtoon-header h1 { font-size: 1.5rem; color: #0f172a; margin-bottom: 0.4rem; }
+.char-desc { font-size: 0.95rem; color: #6366f1; font-weight: 700; }
+
+/* 4컷 만화 프레임 */
+.cuts-feed { display: flex; flex-direction: column; gap: 1.5rem; }
+.cut-panel { background: #fafafa; border: 3px solid #1e293b; border-radius: 14px; padding: 1.2rem; box-shadow: 4px 4px 0px #1e293b; position: relative; }
+.cut-badge { position: absolute; top: -12px; left: 14px; background: #fbbf24; border: 2px solid #1e293b; font-size: 0.75rem; font-weight: 900; padding: 0.2rem 0.6rem; border-radius: 8px; }
+.cut-title { font-size: 1rem; font-weight: 800; color: #1e293b; margin: 0.5rem 0 0.8rem; }
+.cut-scene { font-size: 0.92rem; color: #475569; line-height: 1.6; margin-bottom: 1rem; background: #ffffff; padding: 0.75rem; border-radius: 8px; border: 1px solid #e2e8f0; }
+
+.sound-effect { font-size: 1.2rem; font-weight: 900; color: #ef4444; text-shadow: 1px 1px 0px #000; transform: rotate(-4deg); display: inline-block; margin-bottom: 0.5rem; }
+.speech-bubble { background: #ffffff; border: 2px solid #1e293b; border-radius: 12px; padding: 0.8rem 1rem; font-size: 0.95rem; font-weight: 600; color: #0f172a; position: relative; }
+.speech-bubble::before { content: ""; position: absolute; top: -8px; left: 24px; border-width: 0 8px 8px; border-style: solid; border-color: #1e293b transparent; }
+
+/* 웹툰 푸터 */
+.webtoon-footer { margin-top: 2rem; background: #e0e7ff; border: 2px solid #4338ca; border-radius: 12px; padding: 1.2rem; text-align: center; }
+.webtoon-footer h3 { color: #3730a3; margin-bottom: 0.5rem; }
+.webtoon-footer p { font-size: 0.95rem; color: #1e1b4b; font-weight: 600; margin-bottom: 1rem; }
+.share-btn { width: 100%; padding: 0.7rem; background: #4f46e5; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
