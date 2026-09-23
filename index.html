@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4컷 사주 웹툰</title>
+  <title>픽사 3D 4컷 사주 웹툰</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,12 +11,18 @@
   <main id="screen-input" class="screen">
     <div class="card">
       <header>
-        <span class="badge">NAVER/INSTA STYLE</span>
-        <h1>🎨 4컷 사주 웹툰</h1>
-        <p>생년월일시를 입력하면 나만의 사주 만화가 완성됩니다!</p>
+        <span class="badge">🎬 PIXAR 3D WEBTOON</span>
+        <h1>🎨 픽사 4컷 사주 웹툰</h1>
+        <p>내 사주를 주인공으로 한 3D 애니메이션 만화가 제작됩니다!</p>
       </header>
 
       <form id="saju-form">
+        <!-- 이름 입력란 -->
+        <div class="input-group">
+          <label for="userName">이름 또는 닉네임</label>
+          <input type="text" id="userName" placeholder="예: 김사주, 행운이" required>
+        </div>
+
         <div class="input-group">
           <label for="birthDate">생년월일</label>
           <input type="date" id="birthDate" required>
@@ -48,10 +54,10 @@
 
         <div class="input-group">
           <label for="concern">주요 고민/궁금한 점</label>
-          <input type="text" id="concern" placeholder="예: 재물운, 직장이직, 연애운 등">
+          <input type="text" id="concern" placeholder="예: 재물운, 연애운, 직장 이직 등">
         </div>
 
-        <button type="submit" id="submit-btn">4컷 사주 웹툰 연재하기 🚀</button>
+        <button type="submit" id="submit-btn">4컷 픽사 웹툰 제작하기 🚀</button>
       </form>
     </div>
   </main>
@@ -59,9 +65,9 @@
   <!-- 화면 2: 로딩 화면 -->
   <div id="screen-loading" class="screen hidden">
     <div class="loading-box">
-      <div class="pen-animation">🖌️</div>
-      <h2>도사가 4컷 만화를 그리는 중...</h2>
-      <p>사주 명식을 분석하여 스토리를 구성하고 있습니다.</p>
+      <div class="pen-animation">🎬</div>
+      <h2>픽사 3D 만화를 렌더링하는 중...</h2>
+      <p>사주 명식을 분석하고 4컷 일러스트를 그리고 있습니다.<br>잠시만 기다려 주세요! (약 20초)</p>
     </div>
   </div>
 
@@ -74,7 +80,7 @@
 
       <header class="webtoon-header">
         <div id="character-emoji" class="char-avatar">🐯🔥</div>
-        <h1 id="episode-title">사주 웹툰 제목</h1>
+        <h1 id="episode-title">웹툰 에피소드 제목</h1>
         <p id="character-info" class="char-desc">캐릭터 설명</p>
       </header>
 
