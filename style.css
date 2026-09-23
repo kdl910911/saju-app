@@ -1,0 +1,31 @@
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+body { background: #0f172a; color: #f8fafc; display: flex; justify-content: center; padding: 2rem 1rem; min-height: 100vh; }
+.container { max-width: 580px; width: 100%; background: #1e293b; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; height: fit-content; }
+header { text-align: center; margin-bottom: 2rem; }
+header h1 { font-size: 1.8rem; color: #f1f5f9; margin-bottom: 0.5rem; }
+header p { color: #94a3b8; font-size: 0.95rem; }
+
+.input-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
+.input-row { display: flex; gap: 1rem; }
+.input-row .input-group { flex: 1; }
+label { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; margin-bottom: 0.4rem; }
+input, select { padding: 0.75rem; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #fff; font-size: 0.95rem; width: 100%; }
+input:focus, select:focus { outline: none; border-color: #38bdf8; }
+
+#submit-btn { width: 100%; padding: 0.9rem; background: #6366f1; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.2s; }
+#submit-btn:hover { background: #4f46e5; }
+#submit-btn:disabled { background: #64748b; cursor: not-allowed; }
+
+.hidden { display: none; }
+#loading { text-align: center; margin: 2rem 0; color: #94a3b8; }
+.spinner { width: 36px; height: 36px; border: 4px solid #334155; border-top-color: #6366f1; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#result-card { margin-top: 2rem; padding: 1.5rem; background: #0f172a; border-radius: 12px; border: 1px solid #38bdf8; }
+#result-card h2 { margin-bottom: 1rem; color: #38bdf8; font-size: 1.3rem; }
+#result-content { line-height: 1.8; color: #e2e8f0; font-size: 0.95rem; }
+#result-content h1, #result-content h2, #result-content h3 { color: #f1f5f9; margin: 1rem 0 0.5rem; }
+#result-content p { margin-bottom: 0.8rem; }
+#result-content ul, #result-content ol { margin-left: 1.2rem; margin-bottom: 0.8rem; }
+.print-btn { margin-top: 1.5rem; width: 100%; padding: 0.7rem; background: #334155; color: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; }
+.print-btn:hover { background: #475569; }
