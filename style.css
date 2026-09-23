@@ -1,61 +1,63 @@
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-body { background: #0f172a; color: #1e293b; min-height: 100vh; display: flex; justify-content: center; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Malgun Gothic", sans-serif; }
+body { background: #1e293b; color: #111; min-height: 100vh; display: flex; justify-content: center; }
 
-.screen { width: 100%; max-width: 600px; padding: 1.5rem 1rem; }
+.screen { width: 100%; max-width: 520px; padding: 1.5rem 1rem; }
 .hidden { display: none !important; }
 
-/* 입력 카드 */
-.card { background: #ffffff; border-radius: 20px; padding: 2rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; }
-header { text-align: center; margin-bottom: 1.8rem; }
-.badge { background: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 0.25rem 0.6rem; border-radius: 12px; border: 1.5px solid #854d0e; }
-header h1 { font-size: 1.7rem; color: #0f172a; margin: 0.5rem 0 0.3rem; }
+/* 입력 화면 */
+.card { background: #ffffff; border-radius: 16px; padding: 2rem; border: 3px solid #000; box-shadow: 6px 6px 0px #000; }
+header { text-align: center; margin-bottom: 1.5rem; }
+.badge { background: #dbeafe; color: #1d4ed8; font-size: 0.75rem; font-weight: 800; padding: 0.2rem 0.6rem; border-radius: 8px; border: 1.5px solid #1d4ed8; }
+header h1 { font-size: 1.6rem; margin: 0.4rem 0; color: #0f172a; }
 header p { color: #64748b; font-size: 0.9rem; }
 
-.input-group { margin-bottom: 1.2rem; display: flex; flex-direction: column; }
-.input-row { display: flex; gap: 1rem; }
+.input-group { margin-bottom: 1.1rem; display: flex; flex-direction: column; }
+.input-row { display: flex; gap: 0.8rem; }
 .input-row .input-group { flex: 1; }
-label { font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.4rem; }
-input, select { padding: 0.8rem; border-radius: 10px; border: 2px solid #cbd5e1; font-size: 0.95rem; width: 100%; background: #f8fafc; }
-input:focus, select:focus { outline: none; border-color: #6366f1; background: #fff; }
+label { font-size: 0.85rem; font-weight: 700; color: #334155; margin-bottom: 0.3rem; }
+input, select { padding: 0.75rem; border-radius: 8px; border: 2px solid #94a3b8; font-size: 0.95rem; width: 100%; background: #f8fafc; }
+input:focus, select:focus { outline: none; border-color: #2563eb; background: #fff; }
 
-#submit-btn { width: 100%; padding: 1rem; background: #6366f1; color: white; border: 2px solid #1e293b; border-radius: 12px; font-size: 1.05rem; font-weight: 800; cursor: pointer; box-shadow: 4px 4px 0px #1e293b; transition: 0.1s; }
-#submit-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #1e293b; }
+#submit-btn { width: 100%; padding: 0.95rem; background: #2563eb; color: white; border: 2px solid #000; border-radius: 10px; font-size: 1rem; font-weight: 800; cursor: pointer; box-shadow: 4px 4px 0px #000; }
+#submit-btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #000; }
 
 /* 로딩 화면 */
 #screen-loading { display: flex; justify-content: center; align-items: center; text-align: center; }
-.loading-box { background: white; border-radius: 20px; padding: 2.5rem 1.5rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; width: 100%; }
-.pen-animation { font-size: 3.5rem; animation: pulse 1s infinite alternate; margin-bottom: 1rem; }
-@keyframes pulse { from { transform: scale(1); } to { transform: scale(1.15) rotate(10deg); } }
-.loading-box h2 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #0f172a; }
-.loading-box p { color: #64748b; font-size: 0.9rem; line-height: 1.5; }
+.loading-box { background: white; border-radius: 16px; padding: 2.5rem 1.5rem; border: 3px solid #000; box-shadow: 6px 6px 0px #000; width: 100%; }
+.pen-animation { font-size: 3rem; animation: bounce 0.8s infinite alternate; margin-bottom: 0.8rem; }
+@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px) rotate(15deg); } }
 
-/* 웹툰 결과 화면 */
-.webtoon-container { background: #ffffff; border-radius: 20px; padding: 1.5rem; border: 3px solid #1e293b; box-shadow: 6px 6px 0px #1e293b; }
-.nav-bar { margin-bottom: 1rem; }
-.back-btn { background: #f1f5f9; border: 2px solid #334155; border-radius: 8px; padding: 0.4rem 0.8rem; font-weight: 700; cursor: pointer; }
+/* 4컷 만화 원고지 스타일 */
+.manga-page { background: #ffffff; border: 3px solid #000; box-shadow: 8px 8px 0px #000; border-radius: 12px; padding: 1.2rem; }
+.nav-bar { margin-bottom: 0.8rem; }
+.back-btn { background: #f1f5f9; border: 2px solid #000; border-radius: 6px; padding: 0.35rem 0.7rem; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
 .back-btn:hover { background: #e2e8f0; }
 
-.webtoon-header { text-align: center; padding-bottom: 1.5rem; border-bottom: 2px dashed #cbd5e1; margin-bottom: 1.5rem; }
-.char-avatar { font-size: 3.5rem; margin-bottom: 0.3rem; }
-.webtoon-header h1 { font-size: 1.4rem; color: #0f172a; margin-bottom: 0.4rem; }
-.char-desc { font-size: 0.95rem; color: #6366f1; font-weight: 700; }
+/* <제목> 스타일 */
+.manga-header { text-align: left; margin: 0.5rem 0 1rem 0.2rem; }
+.manga-header h1 { font-size: 1.6rem; font-weight: 900; color: #1d4ed8; letter-spacing: -0.5px; }
 
-/* 4컷 만화 컷 프레임 */
-.cuts-feed { display: flex; flex-direction: column; gap: 2rem; }
-.cut-panel { background: #fafafa; border: 3px solid #1e293b; border-radius: 16px; padding: 1.2rem; box-shadow: 5px 5px 0px #1e293b; position: relative; }
-.cut-badge { position: absolute; top: -14px; left: 14px; background: #fbbf24; border: 2px solid #1e293b; font-size: 0.75rem; font-weight: 900; padding: 0.2rem 0.6rem; border-radius: 8px; }
-.cut-title { font-size: 1.05rem; font-weight: 800; color: #1e293b; margin: 0.5rem 0 0.8rem; }
+/* 4컷 스트립 레이아웃 */
+.manga-strip { display: flex; flex-direction: column; gap: 8px; }
 
-/* 만화 컷 이미지 */
-.cut-img-box { width: 100%; border-radius: 12px; overflow: hidden; border: 2px solid #1e293b; background: #e2e8f0; margin-bottom: 1rem; position: relative; min-height: 240px; display: flex; align-items: center; justify-content: center; }
-.cut-img { width: 100%; height: auto; display: block; object-fit: cover; }
+.comic-panel { position: relative; width: 100%; height: 210px; border: 2.5px solid #000; border-radius: 4px; overflow: hidden; background: #e0f2fe; }
+.panel-bg-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; top: 0; left: 0; z-index: 1; }
 
-.sound-effect { font-size: 1.3rem; font-weight: 900; color: #ef4444; text-shadow: 1px 1px 0px #000; transform: rotate(-3deg); display: inline-block; margin-bottom: 0.6rem; }
-.speech-bubble { background: #ffffff; border: 2px solid #1e293b; border-radius: 14px; padding: 0.9rem 1.1rem; font-size: 0.95rem; font-weight: 700; color: #0f172a; position: relative; line-height: 1.5; }
-.speech-bubble::before { content: ""; position: absolute; top: -9px; left: 24px; border-width: 0 9px 9px; border-style: solid; border-color: #1e293b transparent; }
+/* 만화 컷 위 오버레이 (말풍선, 효과음) */
+.panel-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; padding: 10px; display: flex; flex-direction: column; justify-content: space-between; }
 
-/* 웹툰 푸터 */
-.webtoon-footer { margin-top: 2rem; background: #e0e7ff; border: 2px solid #4338ca; border-radius: 14px; padding: 1.2rem; text-align: center; }
-.webtoon-footer h3 { color: #3730a3; margin-bottom: 0.5rem; }
-.webtoon-footer p { font-size: 0.95rem; color: #1e1b4b; font-weight: 600; margin-bottom: 1rem; line-height: 1.5; }
-.share-btn { width: 100%; padding: 0.8rem; background: #4f46e5; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+/* 만화 효과음 텍스트 (쓱- 짜안! 등) */
+.manga-sfx { position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg); font-size: 1.8rem; font-weight: 900; color: #ef4444; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 3px 3px 0 #000; pointer-events: none; z-index: 3; }
+
+/* 타원형 정통 말풍선 */
+.manga-bubble { background: #ffffff; border: 2px solid #000; border-radius: 18px; padding: 6px 12px; max-width: 62%; font-size: 0.85rem; font-weight: 700; line-height: 1.35; color: #000; box-shadow: 2px 2px 0px rgba(0,0,0,0.25); pointer-events: auto; }
+.bubble-speaker { display: inline-block; font-size: 0.7rem; font-weight: 800; color: #2563eb; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 4px; padding: 1px 4px; margin-right: 4px; margin-bottom: 2px; }
+
+/* 대사 위치 분배: 도사는 왼쪽 위, 주인공은 오른쪽 아래 */
+.bubble-pos-1 { align-self: flex-start; margin-left: 4px; margin-top: 4px; }
+.bubble-pos-2 { align-self: flex-end; margin-right: 4px; margin-bottom: 4px; }
+
+/* 하단 푸터 */
+.manga-footer { margin-top: 1.2rem; text-align: center; }
+.lucky-box { background: #f8fafc; border: 2px dashed #94a3b8; border-radius: 8px; padding: 0.8rem; font-size: 0.88rem; font-weight: 700; color: #334155; line-height: 1.5; margin-bottom: 0.8rem; }
+.copyright { font-size: 0.72rem; color: #94a3b8; font-weight: 600; }
