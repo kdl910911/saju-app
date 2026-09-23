@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 사주 도사실</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔮 AI 사주 도사실</h1>
+      <p>생년월일시를 입력하면 타고난 운과 기운을 풀이해 드립니다.</p>
+    </header>
+
+    <form id="saju-form">
+      <div class="input-group">
+        <label for="birthDate">생년월일</label>
+        <input type="date" id="birthDate" required>
+      </div>
+
+      <div class="input-row">
+        <div class="input-group">
+          <label for="calendarType">양력/음력</label>
+          <select id="calendarType">
+            <option value="양력">양력</option>
+            <option value="음력(평달)">음력 (평달)</option>
+            <option value="음력(윤달)">음력 (윤달)</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="gender">성별</label>
+          <select id="gender">
+            <option value="남성">남성</option>
+            <option value="여성">여성</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="birthTime">태어난 시간 (선택)</label>
+        <input type="time" id="birthTime">
+      </div>
+
+      <div class="input-group">
+        <label for="concern">궁금한 점 (선택)</label>
+        <input type="text" id="concern" placeholder="예: 올해 이직운, 연애운, 재물운 등">
+      </div>
+
+      <button type="submit" id="submit-btn">사주 풀이 보기</button>
+    </form>
+
+    <div id="loading" class="hidden">
+      <div class="spinner"></div>
+      <p>사주 명식을 분석하고 있습니다...</p>
+    </div>
+
+    <div id="result-card" class="hidden">
+      <h2>📜 사주 풀이 결과</h2>
+      <div id="result-content"></div>
+      <button onclick="window.print()" class="print-btn">결과 인쇄/저장</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
